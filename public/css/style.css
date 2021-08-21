@@ -1,0 +1,55 @@
+body{
+    font-family: 'Montserrat', sans-serif;
+}
+.show{
+    display:inline-flexbox;
+    
+}
+.hidden{
+    display:none;
+}
+
+input[type=text]{
+    background-color: #34b7eb;
+    border: none;
+    border-radius: 3px;
+    padding: 5px;
+    font-size: 12px;
+    font-style: italic;
+}
+
+.textLogo{
+    font-size: 2rem;
+    font-weight: bold;
+    font-family: 'Bungee', cursive;
+    line-height: 200% !important;
+    text-shadow: 1px 1px #fff;
+}
+
+header{
+    margin-bottom: 20px !important;
+}
+
+.nav-link {
+    font-weight: bold !important;
+}
+
+h1{
+    text-shadow: 1px 1px #fff;
+}
+
+footer{
+    text-align: center;
+    font-weight: bold;
+    font-family: 'Bungee', cursive;
+    margin: 40px 0 40px 0;
+
+}
+
+.jumbotron{
+    background-image: url(../images/bg.png);
+    background-position: center; /* Center the image */
+  background-repeat: no-repeat; /* Do not repeat the image */
+  background-size: cover; /* Resize the background image to cover the entire container */
+}
+
