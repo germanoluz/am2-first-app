@@ -13,30 +13,28 @@ const port=3000;
 const address = "localhost";
 
 //código do meu faker 
-const faker = require("Faker");
+const utils = require("./utils");
+
+const faker = require("faker"); //modulo usado para criar dados fakes aleatorios para testes
+
+let toggleBol=true;
+
 faker.locale = "pt_BR";
 
 global.users = [];
 
-for (let index = 0; index < 1000; index++){
-    const name = faker.name.findName();
-    const address = faker.address.streetName();
-    const email = faker.internet.email(name);
-    const age = faker.datatype.number(30, 40);
-    const height = faker.datatype.number(1.90);
-    const vote = faker.datatype.boolean();
-
-    user = {
-        name,
-        address,
-        email,
-        age,
-        height,
-        vote
-    }
-
-    users.push(user);
-
+for (let cont=0;cont<20;cont++){
+    users.push(
+        {
+            name:faker.name.findName(),
+            email:faker.internet.email(),
+            address:faker.address.streetAddress(),
+            age:utils.getRandomByInterval(15,50,true),
+            heigth: utils.getRandomByInterval(1.50,1.70,false).toFixed(2),
+            vote:toggleBol
+        }
+    );
+    toggleBol=!toggleBol;
 }
 //console.log(users);
 

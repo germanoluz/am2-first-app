@@ -1,17 +1,11 @@
 <%- contentFor( 'body') %>
 
 <div class="jumbotron text-center">
-    <h1>Usuários Cadastrados</h1>
-    <p>Lista de usuários Cadastrados no sistema.</p>
+    <h1>Adicionar Usuário</h1>
+    <p>Insere registro de usuário no fim do Array usuarios.</p>
 </div>
 
-<div class="row">
-    <div class="col-lg-12 adiciona">
-        <a type="button" class="btn btn-primary" href="#adiciona" >
-            <i class="fas fa-plus"></i>
-            Adicionar usuário
-        </a>
-    </div>            
+<div class="row">            
     <table class="table table-hover table-striped" id="list">
         
             <thead>
@@ -21,7 +15,7 @@
                 <th>Endereço</th>
                 <th>Idade</th>
                 <th>Altura</th>
-                <th>Votou?</th>
+                <th>Vota?</th>
                 <th>Ação</th>
                 <th>Deleta</th>
             </tr>
@@ -54,8 +48,8 @@
                             
                         </td>
                         <td data-index-row="<%=index%>">
-                            <span  class="show"><%= users[index].heigth %></span>
-                            <input type="text" name="heigth"  class="hidden" value="<%= users[index].heigth %>" size="4">
+                            <span  class="show"><%= users[index].height %></span>
+                            <input type="text" name="height"  class="hidden" value="<%= users[index].height %>" size="4">
                             
                         </td>
                         <td data-index-row="<%=index%>">
@@ -83,66 +77,5 @@
                 <%} //If-Else %>   
             </tbody>
         </table>
-
-        <hr>
-        <div class="container" id="adiciona">
-            
-                <h2>Cadastrar novo usuário</h2>
-
-                <% let linkPost="/cadastro/add"; %>
-
-                <form action="#" onsubmit="add('<%=linkPost%>')">
-                    <div class="row">
-                        <div class="form-group col-lg-6">
-                            <label for="_name">Nome:</label>
-                            <input type="text" name="_name" id="_name" class="form-control" placeholder="Nome Completo" required>
-                        </div>
-                        <div class="form-group col-lg-6">
-                            <label for="_email">E-mail:</label>
-                            <input type="email" name="_email" id="_email" class="form-control" placeholder="Ex: email@email.com" required>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="form-group col-lg-12">
-                            <label for="_address">Endereço:</label>
-                            <input type="text" name="_address" id="_address" class="form-control" placeholder="Ex: Av. Jovita Feitosa, 31" required>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="form-group col-lg-4">
-                            <label for="_age">Idade:</label>
-                            <input type="number" name="_age" id="_age" class="form-control" size="3" max-length="3" placeholder="Ex: 32" required>
-                        </div>
-                        <div class="form-group col-lg-4">
-                            <label for="_heigth">Altura:</label>
-                            <input type="number" name="_heigth" id="_heigth" class="form-control" size="4" max-length="4" placeholder="Ex: 1.80" step="0.10" required>
-                        </div>
-                        <div class="form-group col-lg-4">
-                            <!--label for="_vote">Voto:</label>
-                            <input type="text" name="_vote" id="_vote" class="form-control" size="5" placeholder="Ex: 'true' ou 'false'" required>
-                        </div-->
-                            <div class="form-check-inline">
-                                <input class="form-check-input" type="radio" name="_vote" id="votoTrue" value="true">
-                                <label class="form-check-label" for="flexRadioDefault1">
-                                Já votou
-                                </label>
-                            </div>
-                            <div class="form-check-inline">
-                                <input class="form-check-input" type="radio" name="_vote" id="votoFalse" value="false" checked>
-                                <label class="form-check-label" for="flexRadioDefault2">
-                                Não votou
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <input type="submit" value="Enviar" class="btn btn-success">
-                        <button type="reset" value="Cancelar" class="btn btn-warning">Cancelar</button>
-                        <a type="button" class="btn btn-secondary" href="#topo">Voltar ao topo</a>
-
-                    </div>
-                </form>
-            </div>
-        </div>
     
 </div>
