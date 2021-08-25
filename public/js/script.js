@@ -1,22 +1,28 @@
+//código para obter o valor do get adicionou e verificar se é 1, se for, 
+//dá o alert e segue o link de âncora #adiciona, pra ver o último registro adicionado na tabela
+var url_string = window.location.href
+var url = new URL(url_string);
+var adicionou = url.searchParams.get("adicionou");
+console.log(adicionou);
+
+if (adicionou == 1){
+    window.location.href = "#adiciona";
+    alert("Usuário adicionado com sucesso!");
+}
+
 function update(index,link){
     //seleciona todas as tags que sejam td 
     let tds = document.querySelectorAll(`td[data-index-row='${index}']`);
     let spans = document.querySelectorAll(`td[data-index-row='${index}'] > span`);
     let inputs = document.querySelectorAll(`td[data-index-row='${index}'] > input`);
 
-    
     let lenTds = tds.length-1; //numero de tds de uma linha da tabela
     let linkUpdate = tds[lenTds-1]; //retorna o conteudo da penultima td, no caso, o link de update
     let linkRemove = tds[lenTds];
 
     let lenInputs = inputs.length; //pega numero de inputs
     
-    
     let button = inputs[lenInputs-1]; //cria uma conexao com o input que é do tipo button
-
-    
-
-
 
     linkUpdate.className='hidden';
     linkRemove.className='hidden';
@@ -41,15 +47,12 @@ function update(index,link){
     button.addEventListener('click',()=>{
         const http = new XMLHttpRequest(); //cria um objeto para requisição ao servidor
         const url=link;
-        let data = {id:"",name:"",email:"",address:"",age:"",height:"",vote:""};
+        let data = {id:"",name:"",email:"",address:"",age:"",heigth:"",vote:""};
         let dataToSend;
-
-
 
         http.open("POST",link,true); //abre uma comunicação com o servidor através de uma requisição POST
 
         http.setRequestHeader('Content-Type','application/json'); //constroi um cabecalho http para envio dos dados
-
 
         //preenche um objeto com o indice da linha da tabela e os valores dos campos input do tipo text
         data.id = index;
@@ -57,11 +60,12 @@ function update(index,link){
         data.email = inputs[1].value;
         data.address = inputs[2].value;
         data.age = inputs[3].value;
-        data.height = inputs[4].value;
+        data.heigth = inputs[4].value;
         data.vote = inputs[5].value;
 
         dataToSend = JSON.stringify(data); //transforma o objeto literal em uma string JSON que é a representação em string de um objeto JSON
 
+        console.log(dataToSend);
         http.send(dataToSend);//envia dados para o servidor na forma de JSON
 
         /* este codigo abaixo foi colocado para que a interface de cadastro so seja modificada quando se receber um aviso do servidor que a modificacao foi feita com sucesso. No caso o aviso vem na forma do codigo 200 de HTTP: OK */
@@ -87,22 +91,9 @@ function update(index,link){
                 linkRemove.className='show';
                 tds[lenTds-2].className='hidden';
         }
-    /*
-    readyState:
-    0: request not initialized
-    1: server connection established
-    2: request received
-    3: processing request
-    4: request finished and response is ready
-    status:
-    200: "OK"
-    403: "Forbidden"
-    404: "Page not found"
-    */
-    // baseado nos valores acima apresentados, o codigo abaixo mostra o que foi enviado pelo servidor como resposta ao envio de dados. No caso, se o request foi finalizado e o response foi recebido, a mensagem recebida do servidor eh mostrada no console do navegador. esse codigo foi feito apenas para verificar se tudo ocorreu bem no envio
-
+    
     http.onreadystatechange = (e)=>{
-        if (http.readyState === 4 && http.status === 200) { //testa se o envio foi bem sucedido
+        if (http.readyState === 4 && http.status === 200) { 
             console.log(http.responseText);
 
         }
@@ -114,37 +105,18 @@ function update(index,link){
 
 function remove(index,name,link){
 
-    const http = new XMLHttpRequest(); //cria um objeto para requisição ao servidor
+    const http = new XMLHttpRequest(); 
     const url=link;
     
-    http.open("POST",link,true); //abre uma comunicação com o servidor através de uma requisição POST
-    http.setRequestHeader('Content-Type','application/json'); //constroi um cabecalho http para envio dos dados
+    http.open("POST",link,true); 
+    http.setRequestHeader('Content-Type','application/json'); 
 
-    //dataToSend = JSON.stringify({id:index}); //transforma o objeto literal em uma string JSON que é a representação em string de um objeto JSON
-    dataToSend = JSON.stringify({name:name}); //transforma o objeto literal em uma string JSON que é a representação em string de um objeto JSON
-
-    http.send(dataToSend);//envia dados para o servidor na forma de JSON
-
-    /* este codigo abaixo foi colocado para que a interface de cadastro so seja modificada quando se receber um aviso do servidor que a modificacao foi feita com sucesso. No caso o aviso vem na forma do codigo 200 de HTTP: OK */
-
-    /*
-    readyState:
-    0: request not initialized
-    1: server connection established
-    2: request received
-    3: processing request
-    4: request finished and response is ready
-    status:
-    200: "OK"
-    403: "Forbidden"
-    404: "Page not found"
-    */
-
-    // baseado nos valores acima apresentados, o codigo abaixo mostra o que foi enviado pelo servidor como resposta ao envio de dados. No caso, se o request foi finalizado e o response foi recebido, a mensagem recebida do servidor eh mostrada no console do navegador. esse codigo foi feito apenas para verificar se tudo ocorreu bem no envio
+    dataToSend = JSON.stringify({name:name}); 
+    http.send(dataToSend);
 
     http.onload = ()=>{ 
         let resp = JSON.parse(http.response);
-        //seleciona todas as tags que sejam td 
+        
         let tr = document.querySelector(`table#list > tbody > tr[data-index-row='${index}']`);
 
         if (http.readyState === 4 && http.status === 200) {
@@ -154,11 +126,63 @@ function remove(index,name,link){
         } else {
             console.log(`Erro durante a tentativa de remoção do usuário: ${name}! Código do Erro: ${http.status}`); 
         }
-        
 
     }
 }
    
-function add(data){
-    //Adiciona um dado novo
+function add(link){
+    let form = document.forms[0];
+    let inputs = form.querySelectorAll(`input`);
+    
+    const http = new XMLHttpRequest(); 
+    const url=link;
+    
+    let data = {name:"",email:"",address:"",age:"",heigth:"",vote:""};
+    let dataToSend;
+    
+    http.open("POST", url, true); 
+    http.setRequestHeader('Content-Type','application/json'); 
+    
+    data.name = inputs[0].value;
+    data.email = inputs[1].value;
+    data.address = inputs[2].value;
+    data.age = inputs[3].value;
+    data.heigth = inputs[4].value;
+    if (document.getElementById("votoTrue").checked) {
+        data.vote = inputs[5].value;
+    } else if (document.getElementById("votoFalse").checked) {
+        data.vote = inputs[6].value;
+    }
+    
+        
+    dataToSend = JSON.stringify(data); 
+    console.log(dataToSend);
+    
+    http.send(dataToSend);
+
+    http.onload = ()=>{                
+        if (http.readyState === 4 && http.status === 200) {
+            window.location.href = "/cadastro?adicionou=1"; 
+            //console.log(`teste : ${http.status}`);
+        } else {
+            console.log(`Erro durante a tentativa de adicionar usuário! Código do Erro: ${http.status}`); 
+        } 
+    
+    }
+    http.onreadystatechange = (e)=>{
+        if (http.readyState === 4 && http.status === 200) { 
+            console.log(http.responseText);
+        }
+    }
 }
+
+//Efeito de suavização do scrolling
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+            behavior: 'smooth'
+        });
+    });
+});
