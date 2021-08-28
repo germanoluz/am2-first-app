@@ -10,6 +10,52 @@ if (adicionou == 1){
     alert("Usuário adicionado com sucesso!");
 }
 
+//list
+function listando(link){
+    const http = new XMLHttpRequest(); 
+    const urls= link;
+   
+    http.open("GET", urls, true); 
+    http.setRequestHeader('Content-Type','application/json'); 
+
+    http.send();
+
+    http.onload = ()=>{                
+        if (http.readyState === 4 && http.status === 200) {
+            
+            //window.location.href = "/cadastro?adicionou=1"; 
+            var resp = JSON.parse(http.response);
+            //console.log(`entrou aqui : ${http.status}`);
+            console.log(resp);
+            geraTable(resp);
+            
+
+        } else {
+            console.log(`Erro durante a tentativa de adicionar usuário! Código do Erro: ${http.status}`); 
+        } 
+    
+    }
+    http.onreadystatechange = (e)=>{
+        if (http.readyState === 4 && http.status === 200) { 
+            console.log(http.responseText);
+        }
+    }
+}
+
+function geraTable(resp){
+    var tbody = document.querySelector('.minhaLista');
+    resp.forEach(function (r) {
+        var tr = document.createElement('tr');
+        for (var campo in r) {
+            var td = document.createElement('td');
+            td.innerHTML = r[campo];
+            tr.appendChild(td);
+        };
+        tbody.appendChild(tr);
+    });
+    
+}
+
 function update(index,link){
     //seleciona todas as tags que sejam td 
     let tds = document.querySelectorAll(`td[data-index-row='${index}']`);

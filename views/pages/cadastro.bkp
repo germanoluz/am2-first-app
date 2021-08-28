@@ -2,7 +2,7 @@
 
 <div class="jumbotron text-center">
     <h1>Usuários Cadastrados</h1>
-    <p>Lista de usuários Cadastrados no sistema - usando EJS.</p>
+    <p>Lista de usuários Cadastrados no sistema.</p>
 </div>
 
 <div class="row">
