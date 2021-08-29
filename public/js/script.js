@@ -1,5 +1,7 @@
 //código para obter o valor do get adicionou e verificar se é 1, se for, 
 //dá o alert e segue o link de âncora #adiciona, pra ver o último registro adicionado na tabela
+listaExiste = false;
+
 var url_string = window.location.href
 var url = new URL(url_string);
 var adicionou = url.searchParams.get("adicionou");
@@ -23,15 +25,25 @@ function listando(link){
     http.onload = ()=>{                
         if (http.readyState === 4 && http.status === 200) {
             
-            //window.location.href = "/cadastro?adicionou=1"; 
             var resp = JSON.parse(http.response);
-            //console.log(`entrou aqui : ${http.status}`);
             console.log(resp);
-            geraTable(resp);
-            
+            if (listaExiste == false){
+                listaExiste = true;
+                geraTable(resp);
+            }else{
+                var qtdRows = document.getElementById("lista").rows.length;
+                console.log("qtdRows: "+qtdRows);
 
+                for(contador = qtdRows-1; contador > 0; contador--){
+                    document.getElementById('lista').deleteRow(contador);
+                }
+
+                geraTable(resp); 
+            }
+            
+            
         } else {
-            console.log(`Erro durante a tentativa de adicionar usuário! Código do Erro: ${http.status}`); 
+            console.log(`Erro durante atualização da lista! Código do Erro: ${http.status}`); 
         } 
     
     }
@@ -44,15 +56,37 @@ function listando(link){
 
 function geraTable(resp){
     var tbody = document.querySelector('.minhaLista');
-    resp.forEach(function (r) {
-        var tr = document.createElement('tr');
-        for (var campo in r) {
-            var td = document.createElement('td');
-            td.innerHTML = r[campo];
-            tr.appendChild(td);
-        };
-        tbody.appendChild(tr);
-    });
+
+    //var trsEmTbody = document.querySelectorAll('.minhaLista tr');
+    //console.log("TRS Em Tbody: ", trsEmTbody.length);
+
+    //if (trsEmTbody.length > 0){
+        resp.forEach(function (r) {
+            var tr = document.createElement('tr');
+            for (var campo in r) {
+                var td = document.createElement('td');
+                td.innerHTML = r[campo];
+                tr.appendChild(td);
+            };
+            tbody.appendChild(tr);
+        });
+    /*}else{
+        console.log("aqui ó");
+        for(let cont=0; cont < trsEmTbody.length;cont++){
+            console.log("aqui de novo");
+            tbody.removeChild(trsEmTbody[cont]);
+        }
+        resp.forEach(function (r) {
+            var tr = document.createElement('tr');
+            for (var campo in r) {
+                var td = document.createElement('td');
+                td.innerHTML = r[campo];
+                tr.appendChild(td);
+            };
+            tbody.appendChild(tr);
+        });
+    }*/
+    
     
 }
 

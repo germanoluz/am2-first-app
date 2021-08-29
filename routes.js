@@ -86,14 +86,6 @@ router.post('/cadastro/add',(req,res)=>{
 router.get('/list/listar',(req,res)=>{
 
     console.log(users);
-    //let dados = JSON.parse(users);
-    //res.send(JSON.stringify(users));
-    //res.render('pages/list',{users:users});
-    /*res.status(200).json({
-        status:'sucess',
-        data: users,
-        
-    });*/
     res.status(200).send(JSON.stringify(users));
 
 });
