@@ -1,5 +1,7 @@
 //código para obter o valor do get adicionou e verificar se é 1, se for, 
 //dá o alert e segue o link de âncora #adiciona, pra ver o último registro adicionado na tabela
+
+//essa linha representa um controle pra saber se a table já existe (contei com ajuda da Vaneska aqui)
 listaExiste = false;
 
 var url_string = window.location.href
@@ -27,6 +29,7 @@ function listando(link){
             
             var resp = JSON.parse(http.response);
             console.log(resp);
+            //contei com ajuda da Vaneska aqui
             if (listaExiste == false){
                 listaExiste = true;
                 geraTable(resp);
@@ -40,7 +43,7 @@ function listando(link){
 
                 geraTable(resp); 
             }
-            
+            // ela percebeu que a minha table duplicava ao ser atualizada novamente, criamos juntos esse código para corrigir isso, mas ela fez a maior parte do trabalho nesse if, agradeço
             
         } else {
             console.log(`Erro durante atualização da lista! Código do Erro: ${http.status}`); 
