@@ -16,7 +16,9 @@ Por meio de HTML: Nele recebemos a listagem após requisição ao servidor, faze
 
 Créditos:
 Deixo os créditos aqui para a função geraTable, cujo código foi conseguido no seguinte link que não menciona seu criador: http://jsfiddle.net/gsupdtp9/
-Dedico também o agradecimento e créditos ao Professor Wellington Sarmento, que codificou a base da aplicação (maior parte dela).
-Agradeço também a Vaneska Sousa, que percebeu um erro de duplicação na table no meu método list() e nos juntamos para corrigir, sendo que ela fez a maior parte do trabalho, foi uma boa colaboração.
+
+Dedico também o agradecimento e créditos ao Professor Wellington Sarmento, que codificou a base da aplicação (maior parte dela). Obrigado, professor!
+
+Agradeço também a Vaneska Sousa, que percebeu um erro de duplicação na table no meu método list() e nos juntamos para corrigir, sendo que ela fez a maior parte do trabalho (rsrs*), foi uma boa colaboração. Obrigado Vaneska!
 
 Germano Luz.
